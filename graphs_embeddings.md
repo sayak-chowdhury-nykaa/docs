@@ -1,6 +1,6 @@
 # Graphs & Embeddings
 
-## Graphs
+## Graphs:
 
 Graphs generally have the structure $G = (V, E)$ where the graph $G$ has a set of edges $e \in E$ and vertices $v \in V$.
 
@@ -36,9 +36,36 @@ There are primarily two types of hypergraph expansion processes:
 
 <!--diagram of the two expansion techniques here-->
 
-Graphs and the relations that they represent by themselves are of little value, we need to extract insights from these graphical structures in order to 
+Graphs and the relations that they represent by themselves are of little value, we need to extract insights from these structures in order to make predictions or understand how entities relate to or interact with each other.
+For recommender systems specifically, one of the most important utilities of such structures is the capability to analyze how different or similar two or more entities are.
 
+For example, in a graph $G=(V, E)$ recording the social interactions between people in a population how social two entities $u\in V$ and $v\in V$ are is determined by the degree of their separation.
+Their *social*-ness is inversely proportional to the number of edges connecting them.
+Similarly, for any graph encoding the relationship between different entities, how similar two entities are depends on both of their *context*. 
 
+> How does one determine the context of a node in a graph?
+
+The above question can be answered by exploring the following properties of nodes in a graph:
+1. **Homophily**, which is a term borrowed from sociology which means that similar entities tends to associate more closely with each other. This is most closely associated with Breadth-First Search (BFS), that analyzes the immediate surroundings of a particular node.
+2. **Structural Equivalence**, which analyzes the role of a node from a wider perspective. This is most closely associated with Depth-First Search (DFS) techniques that evaluate the structure of a graph.
+
+### Determining Context in Graphs:
+Within any graph consider a source $\mu$ and a sink $v$, the task is to determine how similar the two nodes are to each other.
+This can be found out by computing the context of either node and seeing how much overlap they have, the larger the overlap of their individual contexts is, the more similar they are.
+For both of the nodes, we calculate their neighbourhoods, which are sets of nodes that are in close proximity to the respective nodes:
+$$
+N(\mu)\coloneqq \{ x_1, \dots, x_n \}\\
+N(v) \coloneqq \{ y_1, \dots, y_m \}
+$$
+These can be coputed using either BFS-like or DFS-like algorithms that try to span the entire graph.
+Once these sets of nodes have been determined, their intersection can be taken as a metric to determine how similar the source and sink are.
+However, this metric is not sufficient for densely connected graphs and overall does not provide a strong idea of the nature of similarity shared by the source and sink.
+In the worst case, for a densely connected graph, every node may become completely similar to every other node while consuming significant resources to compute this response.
+
+An alternative method that can be used to compute the context of a node is by using sampling techniques to approximate the neighbourhood of the individual nodes.
+This would consequently give us the approximate context of the nodes in the graph.
+An example of such a sampling method can be having a fixed number of parameterized random walks to explore the context of a node.
+This parameterization enables modulating the trade-offs between DFS and BFS by incorporating heuristics or paramaters that can be biased towards certain kinds of exploration.
 
 
 ## Embeddings
