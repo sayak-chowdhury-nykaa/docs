@@ -52,11 +52,11 @@ The above question can be answered by exploring the following properties of node
 ### Determining Context in Graphs:
 Within any graph consider a source $\mu$ and a sink $v$, the task is to determine how similar the two nodes are to each other.
 This can be found out by computing the context of either node and seeing how much overlap they have, the larger the overlap of their individual contexts is, the more similar they are.
-For both of the nodes, we calculate their neighbourhoods, which are sets of nodes that are in close proximity to the respective nodes. For a sampling strategy $S$, the corresponding neighbourhoods $N_S(\;)$ are:
-$$
-N_S(\mu)\coloneqq \{ x_1, \dots, x_n \}\\
-N_S(v) \coloneqq \{ y_1, \dots, y_m \}
-$$
+For both of the nodes, we calculate their neighbourhoods, which are sets of nodes that are in close proximity to the respective nodes. For a sampling strategy $S$, the corresponding neighbourhoods $N_S( )$ are:
+
+$$N_S(\mu)\coloneqq \{ x_1, \dots, x_n \}$$
+$$N_S(v) \coloneqq \{ y_1, \dots, y_m \}$$
+
 These can be computed using either BFS-like or DFS-like algorithms that try to span the entire graph.
 Once these sets of nodes have been determined, their intersection can be taken as a metric to determine how similar the source and sink are.
 However, this metric is not sufficient for densely connected graphs and overall does not provide a strong idea of the nature of similarity shared by the source and sink.
@@ -75,13 +75,12 @@ Embeddings (or embedding vectors) are essentially some $d$-dimensional vectors t
 These embeddings are trained to retain the signals that can be used to compute how similar two entities are.
 Thus, the overall task is to learn a function $f$ that can compress graph-level features into a single vector $\vec{v}\in \mathbb{R}^d$.
 The dimensionality of the vectors $d$ is a architectural hyperparameter and often determines how dense the representation learnt is going to be (a $100D$ vector can retain more information rather than a $3D$ vector).
-$$
-\mu \to f(\mu) \to \vec{\mu} \in \mathbb{R}^d\\
-v \to f(v) \to \vec{v} \in \mathbb{R}^d
-$$
+
+$$\mu \to f(\mu) \to \vec{\mu} \in \mathbb{R}^d$$
+$$v \to f(v) \to \vec{v} \in \mathbb{R}^d$$
+
 Here, all embeddings are assumed to be living on the same $\mathbb{R}^d$ *embedding space*.
 If the function accurately maps the graph-level properties to the embedding space, entities with overlapping context in the graph should have correspondingly high degree of similarity of context in $\mathbb{R}^d$.
 For vectors, this similarity of context can be computed very simply by taking the dot products of the vector representation of the two entities.
-$$
-\vec{\mu}\cdot \vec{v} = f(\mu)\cdot f(v)
-$$
+
+$$\vec{\mu}\cdot \vec{v} = f(\mu)\cdot f(v)$$
